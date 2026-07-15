@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 const app = express();
 const PORT = 3000;
 const MONGO_URI =
-  "mongodb+srv://krrishkohli15_db_user:xE6ITkiiohdHGFAU@database-associations.dldt88q.mongodb.net/?appName=database-associations ";
+  "mongodb+srv://krrishkohli15_db_user:xE6ITkiiohdHGFAU@database-associations.dldt88q.mongodb.net/db-associations?appName=database-associations ";
 
 // Connect to Mongodb
 mongoose
@@ -17,36 +17,48 @@ mongoose
     console.log(err);
   });
 
-// Profile Schema
-const profileSchema = new mongoose.Schema({
-  age: Number,
-  bio: String,
-  avatar: String,
-});
-
-// User Schema
-const userSchema = new mongoose.Schema(
+// Embedded post schema (inline, no separate collection)
+const postSchema = new mongoose.Schema(
   {
-    name: String,
-    email: String,
-    profile: profileSchema, // Embedded directly
+    title: String,
+    content: String,
   },
-  { timestamps: true },
+  { _id: false },
 );
 
-// Compile to form model
+// User
+const userSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  posts: [postSchema], // Embedded directly
+});
+
 const User = mongoose.model("User", userSchema);
 
-// Create a sample user
-User.create({
-  name: "Jane Doe",
-  email: "jane@gmail.com",
-  profile: {
-    age: 28,
-    bio: "Front-end web developer",
-    avatar: "🤓",
-  },
-})
+// // Create user with it's posts
+// User.create({
+//   name: "Smith",
+//   email: "smith@gmail.com",
+//   posts: [
+//     {
+//       title: "Intro to HTML",
+//       content: "Mastering HTML...",
+//     },
+//     {
+//       title: "Intro to CSS",
+//       content: "CSS for Frontend...",
+//     },
+//   ],
+// })
+//   .then((user) => {
+//     console.log(user);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+// ! Find user and it's posts
+User.findOne({ name: "Smith" })
   .then((user) => {
     console.log(user);
   })
