@@ -6,8 +6,7 @@ const app = express();
 const PORT = 3000;
 
 // ! Connect to DB
-const URI =
-  "mongodb+srv://krrishkohli15_db_user:qC5H5IycTBeUYSMX@cluster0.c0oiv96.mongodb.net/mongodb-basics?appName=Cluster0";
+const MONGO_URI = "Your MongoDB URI";
 mongoose
   .connect(URI)
   .then(() => {

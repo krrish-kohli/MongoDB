@@ -4,8 +4,7 @@ import mongoose from "mongoose";
 // ! Express instance
 const app = express();
 const PORT = 3000;
-const MONGO_URI =
-  "mongodb+srv://krrishkohli15_db_user:xE6ITkiiohdHGFAU@database-associations.dldt88q.mongodb.net/db-associations?appName=database-associations ";
+const MONGO_URI = "Your MongoDB URI";
 
 // Connect to Mongodb
 mongoose
